@@ -4,13 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="stm32学习day3, 步六孤">
+    <meta name="keywords" content="stm32学习day6, 步六孤">
     <meta name="description" content="
-title:stm 32 GPIO工作原理date:2019-10-25tags:stm32，GPIO，c
+title：按键输入实验date：2019-10-23tags：stm32，GPIO，keil，c
 
-stm 32 GPIO工作原理
-一.GPIO基本结构和工作方式1.参考资料：
-探索者STM32F4开发板：   《STM32F4">
+按键输入实验
+
+一.参考资料
+探索者STM32F4开发板：《STM32F4开发指南-库函数版本》-第8章  按键输入实验
+STM32F4">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +20,7 @@ stm 32 GPIO工作原理
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>stm32学习day3 | 步六孤</title>
+    <title>stm32学习day6 | 步六孤</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -283,13 +285,13 @@ stm 32 GPIO工作原理
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        stm32学习day3
+                        stm32学习day6
                     </div>
                 </div>
             </div>
@@ -392,7 +394,7 @@ stm 32 GPIO工作原理
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-11-20
+                    2019-11-24
                 </div>
 
                 
@@ -409,25 +411,61 @@ stm 32 GPIO工作原理
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <hr>
-<p>title:stm 32 GPIO工作原理<br>date:2019-10-25<br>tags:stm32，GPIO，c</p>
+<p>title：按键输入实验<br>date：2019-10-23<br>tags：stm32，GPIO，keil，c</p>
 <hr>
-<h1 id="stm-32-GPIO工作原理"><a href="#stm-32-GPIO工作原理" class="headerlink" title="stm 32 GPIO工作原理"></a>stm 32 GPIO工作原理</h1><a id="more"></a>
-<h2 id="一-GPIO基本结构和工作方式"><a href="#一-GPIO基本结构和工作方式" class="headerlink" title="一.GPIO基本结构和工作方式"></a>一.GPIO基本结构和工作方式</h2><h3 id="1-参考资料："><a href="#1-参考资料：" class="headerlink" title="1.参考资料："></a>1.参考资料：</h3><blockquote>
-<p>探索者STM32F4开发板：<br>   <strong>《STM32F4开发指南-库函数版本》-第六章 跑马灯实验6.1小节</strong></p>
+<h1 id="按键输入实验"><a href="#按键输入实验" class="headerlink" title="按键输入实验"></a>按键输入实验</h1><a id="more"></a>
+
+<h2 id="一-参考资料"><a href="#一-参考资料" class="headerlink" title="一.参考资料"></a>一.参考资料</h2><blockquote>
+<p>探索者STM32F4开发板：<br>《STM32F4开发指南-库函数版本》-第8章  按键输入实验</p>
+<p>STM32F4xx官方资料：<br>《STM32F4xx中文参考手册》-第7章通用IO</p>
 </blockquote>
-<p>  STM32F4xx官方资料：<br>  《STM32F4xx中文参考手册》-第7章通用IO<br>   芯片数据手册</p>
-<h3 id="2-stm32引脚说明："><a href="#2-stm32引脚说明：" class="headerlink" title="2.stm32引脚说明："></a>2.stm32引脚说明：</h3><blockquote>
-<p>STM32F407ZGT6<br>    -  一共有7组IO口<br>    - 每组IO口有16个IO<br>    - 一共16X7=112个IO<br>    外加2个PH0和PH1一共114个IO口<br>    GPIOA,GPIOB—GPIOG<br>    PH0,PH1</p>
+<h2 id="二-按键实验硬件连接"><a href="#二-按键实验硬件连接" class="headerlink" title="二.按键实验硬件连接"></a>二.按键实验硬件连接</h2><h2 id=""><a href="#" class="headerlink" title=""></a><img src="http://q1dfwkkdo.bkt.clouddn.com/day6-1.png" alt="day6-1" style="zoom: 33%;" /></h2><blockquote>
+<p>KEY0-&gt;PE4  上拉输入<br>KEY1-&gt;PE3  上拉输入<br>KEY2-&gt;PE2  上拉输入<br>WK_UP-&gt;PA0  下拉输入</p>
+<p><strong>提示：KEY_UP按键，按下，IO口检测到高电平。</strong></p>
+<p><strong>KEY0/KEY1/KEY2按下，IO口检测到低电平。</strong></p>
 </blockquote>
-<h3 id="3-GPIO工作方式："><a href="#3-GPIO工作方式：" class="headerlink" title="3.GPIO工作方式："></a>3.GPIO工作方式：</h3><blockquote>
-<p><strong>4种输入模式：</strong><br>       输入浮空<br>       输入上拉<br>       输入下拉<br>       模拟输入<br>  <strong>4种输出模式：</strong></p>
-<blockquote>
-<p><strong>1.开漏输出(带上拉或者下拉):</strong><br>      只可以输出强低电平，高电平得靠外部电阻拉高。输出端相当于三极管的集电极. 要得到高电平状态需要上拉电阻才行. 适合于做电流型的驱动,其吸收电流的能力相对强(一般20ma以内)<br>      <strong>2.开漏复用功能(带上拉或者下拉)</strong><br>      <strong>3.推挽式输出(带上拉或者下拉):</strong><br>      可以输出强高低电平，连接数字器件<br>      <strong>4.推挽式复用功能(带上拉或者下拉)</strong><br>  <strong>4种最大输出速度：</strong><br>       -2MHZ<br>       -25MHz<br>       -50MHz<br>       -100MHz<br>  8种工作模式的区别：STM32八种IO口模式区别.pdf<br>  <em>各模式详解请看视频</em></p>
-</blockquote>
-</blockquote>
-<h2 id="二-GPIO寄存器说明"><a href="#二-GPIO寄存器说明" class="headerlink" title="二.GPIO寄存器说明:"></a>二.GPIO寄存器说明:</h2><p>  略</p>
-<h2 id="三-stm32f4xx-GPIO引脚说明："><a href="#三-stm32f4xx-GPIO引脚说明：" class="headerlink" title="三.stm32f4xx GPIO引脚说明："></a>三.stm32f4xx GPIO引脚说明：</h2><h3 id="1-端口复用器："><a href="#1-端口复用器：" class="headerlink" title="1.端口复用器："></a>1.端口复用器：</h3><p>STM32F4的大部分端口都具有复用功能。<br>所谓复用，就是一些端口不仅仅可以做为通用IO口，还可以复用为一<br>些外设引脚，比如PA9,PA10可以复用为STM32F4的串口1引脚。<br><strong>作用：最大限度的利用端口资源</strong></p>
-<h3 id="2-特点："><a href="#2-特点：" class="headerlink" title="2.特点："></a>2.特点：</h3><p><strong>所有IO口都可以作为中断输入</strong></p>
+<h2 id="三-GPIO输入操作说明"><a href="#三-GPIO输入操作说明" class="headerlink" title="三.GPIO输入操作说明"></a>三.GPIO输入操作说明</h2><h3 id="GPIO输入库函数说明"><a href="#GPIO输入库函数说明" class="headerlink" title="GPIO输入库函数说明"></a>GPIO输入库函数说明</h3><ul>
+<li><p>读取IO口输入电平调用库函数为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uint8_t GPIO_ReadInputDataBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>读取IO口输入电平操作寄存器为（不推荐使用）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GPIOx_IDR:端口输入寄存器</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用位带操作读取IO口输入电平方法（不推荐使用）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PEin(4)          -读取GPIOE.4口电平</span><br><span class="line">PEin(n)          -读取GPIOE.n口电平</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="四-按键实验"><a href="#四-按键实验" class="headerlink" title="四.按键实验"></a>四.按键实验</h2><h3 id="手把手写按键输入实验"><a href="#手把手写按键输入实验" class="headerlink" title="手把手写按键输入实验"></a>手把手写按键输入实验</h3><ul>
+<li><p>使能按键对应IO口时钟。调用函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RCC_AHB1PeriphClockCmd ();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化IO模式：上拉/下拉输入。调用函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GPIO_Init();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>扫描IO口电平（库函数/寄存器/位操作）。</p>
+</li>
+<li><p>按键扫描思路：</p>
+<img src="http://q1dfwkkdo.bkt.clouddn.com/day6-2.png" alt="day6-2" style="zoom:33%;" />
+</li>
+<li><p>按键扫描（支持连续按）的一般思路：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">u8 <span class="title">KEY_Scan</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(KEY按下）</span><br><span class="line">    &#123;</span><br><span class="line">          delay_ms(<span class="number">10</span>)；<span class="comment">//延时10-20ms，防抖。</span></span><br><span class="line">          <span class="keyword">if</span>(KEY确实按下)</span><br><span class="line">           &#123;</span><br><span class="line">              <span class="keyword">return</span> KEY_Value；</span><br><span class="line">            &#125;</span><br><span class="line">         <span class="keyword">return</span> 无效值；</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按键扫描（不支持连续按）的一般思路：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">u8 <span class="title">KEY_Scan</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> u8 key_up=<span class="number">1</span>;</span><br><span class="line">     <span class="keyword">if</span>（key_up &amp;&amp;  KEY按下）</span><br><span class="line">     &#123;</span><br><span class="line">       delay_ms(<span class="number">10</span>);<span class="comment">//延时，防抖</span></span><br><span class="line">       key_up=<span class="number">0</span>;<span class="comment">//标记这次key已经按下</span></span><br><span class="line">       <span class="keyword">if</span>(KEY确实按下)</span><br><span class="line">         &#123;</span><br><span class="line">          <span class="keyword">return</span> KEY_VALUE;</span><br><span class="line">         &#125;</span><br><span class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(KEY没有按下)  key_up=<span class="number">1</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按键扫描（两种模式合二为一）的一般思路：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">u8 <span class="title">KEY_Scan</span><span class="params">(u8 mode)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> u8 key_up=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(mode==<span class="number">1</span>) key_up=<span class="number">1</span>;<span class="comment">//支持连续按</span></span><br><span class="line">     <span class="keyword">if</span>（key_up &amp;&amp;  KEY按下）</span><br><span class="line">     &#123;</span><br><span class="line">       delay_ms(<span class="number">10</span>);<span class="comment">//延时，防抖</span></span><br><span class="line">       key_up=<span class="number">0</span>;<span class="comment">//标记这次key已经按下</span></span><br><span class="line">       <span class="keyword">if</span>(KEY确实按下)</span><br><span class="line">         &#123;</span><br><span class="line">          <span class="keyword">return</span> KEY_VALUE;</span><br><span class="line">         &#125;</span><br><span class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(KEY没有按下)  key_up=<span class="number">1</span>;</span><br><span class="line">      <span class="keyword">return</span> 没有按下</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<p>1.程序思路上可以这样理解：支持连续按的话，就是在不支持连续按的代码的基础上，</p>
+<p>把每次保存的上一次的按键状态都人为设置为松开即可（key_up=1）。</p>
+<p>这样，就确保每次按下都有效。</p>
+<p>2.static静态局部变量，变量只初始化一次，下次调用KEY_up不会重新初始化为1，</p>
+<p>而是上一次调用KEY_Scan函数之后KEY_up的值。</p>
+<p>有关static的相关知识可以自行百度进行更深一步的了解。</p>
+</li>
+</ul>
 
             </div>
             <hr/>
@@ -568,7 +606,7 @@ stm 32 GPIO工作原理
                     </span>
                     <a href="http://yoursite.com" class="b-link-green">步六孤</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/11/20/stm32%E5%AD%A6%E4%B9%A0day3/" class="b-link-green">stm32学习day3</a>
+                    <a href="/2019/11/24/stm32%E5%AD%A6%E4%B9%A0day6/" class="b-link-green">stm32学习day6</a>
                 </p>
             </div>
         </div>
@@ -593,25 +631,24 @@ stm 32 GPIO工作原理
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/11/20/stm32%E5%AD%A6%E4%B9%A0day4/">
+                <a href="/2019/11/24/stm32%E5%AD%A6%E4%B9%A0day7/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="stm32学习day4">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="stm32学习day7">
                         
-                        <span class="card-title">stm32学习day4</span>
+                        <span class="card-title">stm32学习day7</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">
-title：跑马灯实验date：2019-10-23tags：stm32，GPIO，keil，c
+                    <div class="summary">ISO串口下载
 
-跑马灯实验
-一.参考资料：
-探索者STM32F4开发板：   《STM32F4开发指南-库函数版本》-第六章 跑马灯实验6.1小节STM3</div>
+参考资料
+探索者STM32F4开发板：《STM32F4开发指南-库函数版本》-3.4.1小节 STM32串口程序下载
+战舰/精英STM32F1开发板：《STM32F1开发指南-库函数版本》-3.4.2  STM32串口程序</div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-20
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-24
                         </span>
                         <span class="publish-author">
                             
@@ -631,25 +668,26 @@ title：跑马灯实验date：2019-10-23tags：stm32，GPIO，keil，c
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/11/20/stm32%E5%AD%A6%E4%B9%A0-day2/">
+                <a href="/2019/11/24/stm32%E5%AD%A6%E4%B9%A0day5/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="stm32学习-day2">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="stm32学习day5">
                         
-                        <span class="card-title">stm32学习-day2</span>
+                        <span class="card-title">stm32学习day5</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary">
-title：开发环境搭建date：2019-10-23tags：stm32，keil，c
+title：蜂鸣器实验date：2019-10-23tags：stm32，GPIO，keil，c
 
-开发环境搭建
-一.MDK安装(编程环境)1.MDK是什么？
-RealView MDK是Keil公司开发的，为基于Cortex 、ARM7、ARM9</div>
+蜂鸣器实验
+
+一.参考资料：
+探索者STM32F4开发板：《STM32F4开发指南-库函数版本》-第7章 蜂鸣器实验STM32F4xx官方</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-20
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-24
                             </span>
                         <span class="publish-author">
                             
